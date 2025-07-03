@@ -45,4 +45,69 @@
 - **多线程**（使用 `QtConcurrent` 和 `QThreadPool`）
 - **回调函数**实现 DLL 到 UI 的事件通知
 
-          
+## 🛠️ 构建说明
+
+本项目依赖 Qt 和 Microsoft Visual Studio 构建工具，以下是推荐的构建流程。
+
+### 1. 准备第三方库
+
+请下载并准备第三方库文件夹 `thirdparty_install`（包含 Qt 相关依赖），下载链接如下：
+
+👉 [thirdparty_install 下载地址](https://365.kdocs.cn/view/l/crFHGQuSLP9Q?openfrom=docs)
+
+请将该文件夹与 `KDevelop-Training/` 项目目录置于同一层级目录中，目录结构如下：
+
+```
+root/
+├── thirdparty_install/        # 第三方依赖（需手动下载）
+└── KDevelop-Training/         # 本项目源码（包含 filescanner/）
+    └── filescanner/
+```
+
+---
+
+### 2. 创建构建目录
+
+在项目根目录下创建并进入构建目录：
+
+```bash
+mkdir Debug
+cd Debug
+```
+
+---
+
+### 3. 配置 Visual Studio 环境
+
+使用 Microsoft Visual Studio 提供的命令行环境进行编译。在命令行中调用对应版本的编译环境（以 Visual Studio 2019 为例）：
+
+```cmd
+call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsamd64_x86.bat"
+```
+
+> 请根据你的实际 Visual Studio 安装路径和版本适当调整上述命令。
+
+---
+
+### 4. 执行构建命令
+
+根据需要选择构建 Debug 或 Release 版本：
+
+#### 构建 Debug 版本：
+
+```cmd
+cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Debug ../KDevelop-Training
+msbuild /m KDevelop-Train.sln /p:Platform=x64 /p:Configuration=Debug
+```
+
+#### 构建 Release 版本：
+
+```cmd
+cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Release ../KDevelop-Training
+msbuild /m KDevelop-Train.sln /p:Platform=x64 /p:Configuration=Release
+```
+
+---
+
+构建完成后，可在 `Debug/` 或 `Release/` 目录中找到可执行程序 `FileScannerUI.exe`，双击运行即可。
+
